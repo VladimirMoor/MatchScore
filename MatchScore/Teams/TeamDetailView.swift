@@ -38,7 +38,7 @@ struct TeamDetailView: View {
                     }
                 }
                 .sheet(isPresented: $isShowingFilterList, content: {
-                    RoleFilterVIew(role: $roleFilter)
+                    RoleFilterView(role: $roleFilter)
                 })
         .sheet(isPresented: $isShownAddPlayerView) {
             NewPlayerView(team: team)

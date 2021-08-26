@@ -1,0 +1,48 @@
+//
+//  RoleFilterView.swift
+//  RoleFilterView
+//
+//  Created by Владимир Муравьев on 26.08.2021.
+//
+
+import SwiftUI
+
+struct RoleFilterView: View {
+    @Binding var role: String
+    @Environment(\.presentationMode) var presentationMode
+    
+    var roles: [String] {
+        var allRoles = Player.possibleRoles
+        allRoles.append("All")
+        return allRoles
+    }
+    
+    var body: some View {
+        
+        VStack {
+//
+//        Text("All")
+//                .padding()
+//                .background(Color.green)
+//                .clipShape(Capsule())
+//                .onTapGesture {
+//                    role = "All"
+//                    presentationMode.wrappedValue.dismiss()
+//                }
+//
+            ForEach(roles, id: \.self) { item in
+                
+            Text(item)
+                .padding()
+                .background(Color.pink)
+                .clipShape(Capsule())
+                .onTapGesture {
+                    print(item)
+                    role = item
+                    presentationMode.wrappedValue.dismiss()
+                }
+        }
+        }
+        
+    }
+}

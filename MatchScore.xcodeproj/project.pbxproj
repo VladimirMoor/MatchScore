@@ -15,6 +15,8 @@
 		3166264926D788730064BC7F /* TeamDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3166264826D788730064BC7F /* TeamDetailView.swift */; };
 		3166264C26D797530064BC7F /* PlayersList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3166264B26D797530064BC7F /* PlayersList.swift */; };
 		3166264E26D7983C0064BC7F /* Player+helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3166264D26D7983C0064BC7F /* Player+helper.swift */; };
+		3166265126D7990D0064BC7F /* RoleFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3166265026D7990D0064BC7F /* RoleFilterView.swift */; };
+		3166265326D7C8A60064BC7F /* NewPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3166265226D7C8A60064BC7F /* NewPlayerView.swift */; };
 		319C9CE426D60E5C009150D0 /* MatchScoreApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C9CE326D60E5C009150D0 /* MatchScoreApp.swift */; };
 		319C9CE626D60E5C009150D0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C9CE526D60E5C009150D0 /* ContentView.swift */; };
 		319C9CE826D60E5D009150D0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 319C9CE726D60E5D009150D0 /* Assets.xcassets */; };
@@ -30,6 +32,8 @@
 		3166264826D788730064BC7F /* TeamDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamDetailView.swift; sourceTree = "<group>"; };
 		3166264B26D797530064BC7F /* PlayersList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayersList.swift; sourceTree = "<group>"; };
 		3166264D26D7983C0064BC7F /* Player+helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Player+helper.swift"; sourceTree = "<group>"; };
+		3166265026D7990D0064BC7F /* RoleFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleFilterView.swift; sourceTree = "<group>"; };
+		3166265226D7C8A60064BC7F /* NewPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPlayerView.swift; sourceTree = "<group>"; };
 		319C9CE026D60E5C009150D0 /* MatchScore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MatchScore.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		319C9CE326D60E5C009150D0 /* MatchScoreApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchScoreApp.swift; sourceTree = "<group>"; };
 		319C9CE526D60E5C009150D0 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -51,12 +55,22 @@
 		3166264A26D7969B0064BC7F /* Teams */ = {
 			isa = PBXGroup;
 			children = (
+				3166264F26D798C50064BC7F /* Players */,
 				310E28EC26D784C10053DFE0 /* TeamsView.swift */,
 				3166264826D788730064BC7F /* TeamDetailView.swift */,
-				3166264B26D797530064BC7F /* PlayersList.swift */,
 				3166264626D7881C0064BC7F /* NewTeamView.swift */,
 			);
 			path = Teams;
+			sourceTree = "<group>";
+		};
+		3166264F26D798C50064BC7F /* Players */ = {
+			isa = PBXGroup;
+			children = (
+				3166264B26D797530064BC7F /* PlayersList.swift */,
+				3166265226D7C8A60064BC7F /* NewPlayerView.swift */,
+				3166265026D7990D0064BC7F /* RoleFilterView.swift */,
+			);
+			path = Players;
 			sourceTree = "<group>";
 		};
 		319C9CD726D60E5C009150D0 = {
@@ -173,9 +187,11 @@
 				319C9CE626D60E5C009150D0 /* ContentView.swift in Sources */,
 				3166264E26D7983C0064BC7F /* Player+helper.swift in Sources */,
 				3166264726D7881C0064BC7F /* NewTeamView.swift in Sources */,
+				3166265126D7990D0064BC7F /* RoleFilterView.swift in Sources */,
 				310E28E926D772B10053DFE0 /* CoreDataManager.swift in Sources */,
 				3166264C26D797530064BC7F /* PlayersList.swift in Sources */,
 				3166264926D788730064BC7F /* TeamDetailView.swift in Sources */,
+				3166265326D7C8A60064BC7F /* NewPlayerView.swift in Sources */,
 				310E28ED26D784C10053DFE0 /* TeamsView.swift in Sources */,
 				310E28EB26D77CA60053DFE0 /* MainView.swift in Sources */,
 				319C9CE426D60E5C009150D0 /* MatchScoreApp.swift in Sources */,
