@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		310E28E726D772800053DFE0 /* MatchScoreCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 310E28E526D772800053DFE0 /* MatchScoreCoreData.xcdatamodeld */; };
+		310E28E926D772B10053DFE0 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310E28E826D772B10053DFE0 /* CoreDataManager.swift */; };
 		319C9CE426D60E5C009150D0 /* MatchScoreApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C9CE326D60E5C009150D0 /* MatchScoreApp.swift */; };
 		319C9CE626D60E5C009150D0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C9CE526D60E5C009150D0 /* ContentView.swift */; };
 		319C9CE826D60E5D009150D0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 319C9CE726D60E5D009150D0 /* Assets.xcassets */; };
@@ -14,6 +16,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		310E28E626D772800053DFE0 /* MatchScoreCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MatchScoreCoreData.xcdatamodel; sourceTree = "<group>"; };
+		310E28E826D772B10053DFE0 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		319C9CE026D60E5C009150D0 /* MatchScore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MatchScore.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		319C9CE326D60E5C009150D0 /* MatchScoreApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchScoreApp.swift; sourceTree = "<group>"; };
 		319C9CE526D60E5C009150D0 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -53,6 +57,8 @@
 			children = (
 				319C9CE326D60E5C009150D0 /* MatchScoreApp.swift */,
 				319C9CE526D60E5C009150D0 /* ContentView.swift */,
+				310E28E826D772B10053DFE0 /* CoreDataManager.swift */,
+				310E28E526D772800053DFE0 /* MatchScoreCoreData.xcdatamodeld */,
 				319C9CE726D60E5D009150D0 /* Assets.xcassets */,
 				319C9CE926D60E5D009150D0 /* Preview Content */,
 			);
@@ -137,7 +143,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				310E28E726D772800053DFE0 /* MatchScoreCoreData.xcdatamodeld in Sources */,
 				319C9CE626D60E5C009150D0 /* ContentView.swift in Sources */,
+				310E28E926D772B10053DFE0 /* CoreDataManager.swift in Sources */,
 				319C9CE426D60E5C009150D0 /* MatchScoreApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -343,6 +351,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		310E28E526D772800053DFE0 /* MatchScoreCoreData.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				310E28E626D772800053DFE0 /* MatchScoreCoreData.xcdatamodel */,
+			);
+			currentVersion = 310E28E626D772800053DFE0 /* MatchScoreCoreData.xcdatamodel */;
+			path = MatchScoreCoreData.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 319C9CD826D60E5C009150D0 /* Project object */;
 }
