@@ -13,23 +13,14 @@ struct RoleFilterView: View {
     
     var roles: [String] {
         var allRoles = Player.possibleRoles
-        allRoles.append("All")
+        allRoles.insert("All", at: 0)
         return allRoles
     }
     
     var body: some View {
         
         VStack {
-//
-//        Text("All")
-//                .padding()
-//                .background(Color.green)
-//                .clipShape(Capsule())
-//                .onTapGesture {
-//                    role = "All"
-//                    presentationMode.wrappedValue.dismiss()
-//                }
-//
+
             ForEach(roles, id: \.self) { item in
                 
             Text(item)

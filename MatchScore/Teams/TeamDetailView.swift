@@ -17,8 +17,32 @@ struct TeamDetailView: View {
     
     var body: some View {
         VStack {
-            Text("Role filter choosen: \(roleFilter)")
+
+            ZStack(alignment: .bottomTrailing) {
+                
             PlayersList(team: team , filter: roleFilter)
+            
+                Button(action: {
+                    isShowingFilterList = true
+                }, label: {
+                    VStack(spacing: 5) {
+                        if roleFilter != "All" {
+                        Text(roleFilter)
+                            .font(.footnote)
+                            
+                        }
+                        
+                        Image(systemName: "line.3.horizontal.decrease.circle.fill")
+                        .resizable()
+                        .frame(width: 44, height: 44)
+                    }
+                })
+                    .padding(44)
+            }
+            .sheet(isPresented: $isShownAddPlayerView) {
+                NewPlayerView(team: team)
+            }
+            
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button {
@@ -27,22 +51,11 @@ struct TeamDetailView: View {
                             Image(systemName: "plus.circle")
                         }
                     }
-                    
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Button {
-                            isShowingFilterList = true
-                        } label: {
-                            Image(systemName: "line.3.horizontal.decrease.circle.fill")
-                        }
-                        
-                    }
                 }
                 .sheet(isPresented: $isShowingFilterList, content: {
                     RoleFilterView(role: $roleFilter)
                 })
-        .sheet(isPresented: $isShownAddPlayerView) {
-            NewPlayerView(team: team)
-        }
+        
         .navigationTitle(team.name ?? "")
         .environment(\.managedObjectContext, moc)
     }

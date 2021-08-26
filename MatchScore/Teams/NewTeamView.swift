@@ -23,9 +23,11 @@ struct NewTeamView: View {
             TextField("Enter team name", text: $name)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding(.top, 40)
+                .disableAutocorrection(true)
                 
             TextField("Enter team city", text: $city)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
+                .disableAutocorrection(true)
             
             Button {
                 let newTeam = Team(context: moc)

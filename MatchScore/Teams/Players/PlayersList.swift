@@ -10,14 +10,21 @@ import SwiftUI
 struct PlayersList: View {
     @Environment(\.managedObjectContext) var moc
     @ObservedObject var team: Team
-    var players: FetchRequest<Player>
+    var teamPlayers: [Player]
     
-    init(team: Team,filter: String) {
-        if filter != "All" {
-            players = FetchRequest<Player>(entity: Player().entity, sortDescriptors: [NSSortDescriptor(keyPath: \Player.number, ascending: true)], predicate: NSPredicate(format: "role = %@", filter))
+    init(team: Team, filter: String) {
+
+        if let allPlayers = team.players?.allObjects as? [Player] {
+            if filter != "All" {
+                teamPlayers = allPlayers.filter { $0.role == filter }
+            } else {
+                teamPlayers = allPlayers
+            }
+            
         } else {
-            players = FetchRequest<Player>(entity: Player().entity, sortDescriptors: [NSSortDescriptor(keyPath: \Player.number, ascending: true)])
+            teamPlayers = []
         }
+        
         self.team = team
 
     }
@@ -25,7 +32,7 @@ struct PlayersList: View {
     var body: some View {
         VStack {
         List {
-            ForEach(players.wrappedValue) { player in
+            ForEach(teamPlayers) { player in
                 HStack {
                     Text("\(player.number)")
                     Text(player.fullName ?? "Noname")
@@ -34,7 +41,7 @@ struct PlayersList: View {
             }
             .onDelete { indexSet in
                 indexSet.forEach { index in
-                    let player = players.wrappedValue[index]
+                    let player = teamPlayers[index]
                     moc.delete(player)
                     try? moc.save()
                 }

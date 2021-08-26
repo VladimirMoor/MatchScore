@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct NewPlayerView: View {
     @Environment(\.managedObjectContext) var moc
@@ -19,8 +20,8 @@ struct NewPlayerView: View {
     
     var body: some View {
         NavigationView {
+            
             Form {
-                
                 Section {
                     Picker("Choose role", selection: $role) {
                         ForEach(Player.possibleRoles, id:\.self) { item in
@@ -30,19 +31,16 @@ struct NewPlayerView: View {
                 }
                 
                 TextField("Full name", text: $fullName)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .textFieldStyle(.roundedBorder)
+                    .disableAutocorrection(true)
                 
                 TextField("Age", text: $age)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .textFieldStyle(.roundedBorder)
                     .keyboardType(.numberPad)
                 
                 TextField("Number", text: $number)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .textFieldStyle(.roundedBorder)
                     .keyboardType(.numberPad)
-                
-                Rectangle()
-                    .fill(Color.secondary)
-                    .frame(maxWidth: .infinity, maxHeight: 2)
 
                 Button {
                     let newPlayer = Player(context: moc)
@@ -61,9 +59,12 @@ struct NewPlayerView: View {
                     Text("Save")
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 10)
-                        .cornerRadius(16)
-                        .overlay(RoundedRectangle(cornerRadius: 16).stroke(lineWidth: 1))
+                        .background(
+                            Capsule()
+                                .fill(Color.green)
+                        )
                 }
+                .buttonStyle(.borderless)
                 .disabled(Int16(age) == nil || Int16(number) == nil || fullName == "" || role == "")
                 
             }
