@@ -8,8 +8,65 @@
 import SwiftUI
 
 struct NewTeamView: View {
+    
+    @State private var city: String = ""
+    @State private var name: String = ""
+    @State private var regDate: Date = Date()
+    @Environment(\.managedObjectContext) var moc
+    @Environment(\.presentationMode) var presentationMode
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        
+        Form {
+            VStack(spacing: 20) {
+            
+            TextField("Enter team name", text: $name)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .padding(.top, 40)
+                
+            TextField("Enter team city", text: $city)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+            
+            Button {
+                let newTeam = Team(context: moc)
+                newTeam.name = name
+                newTeam.city = city
+                newTeam.regDate = Date()
+                
+                try? moc.save()
+                self.presentationMode.wrappedValue.dismiss()
+                
+            } label: {
+                Text("Save Team")
+                    .bold()
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 10)
+                    .background(
+                    Capsule()
+                        .stroke(lineWidth: 2)
+                    )
+            }
+            .buttonStyle(BorderlessButtonStyle())
+            .disabled(city == "" || name == "")
+
+            Button {
+                self.presentationMode.wrappedValue.dismiss()
+            } label: {
+                Text("Cancel")
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 10)
+                    .background(
+                        Capsule()
+                            .fill(Color.gray.opacity(0.3))
+                    )
+
+                    }
+        }
+        .buttonStyle(BorderlessButtonStyle())
+        .navigationTitle("Add New Team")
+        
+        }
+        
     }
 }
 
