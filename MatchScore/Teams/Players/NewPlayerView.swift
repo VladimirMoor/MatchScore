@@ -5,6 +5,8 @@
 //  Created by Владимир Муравьев on 26.08.2021.
 //
 
+// TODO: Add checking for existing player number ( obviously in team can not be two players with same number ) 
+
 import SwiftUI
 import CoreData
 
