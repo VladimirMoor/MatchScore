@@ -4,10 +4,12 @@
         <attribute name="time" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="type" attributeType="String"/>
         <relationship name="author" maxCount="1" deletionRule="Nullify" destinationEntity="Player" inverseName="events" inverseEntity="Player"/>
+        <relationship name="matche" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Match" inverseName="events" inverseEntity="Match"/>
     </entity>
     <entity name="Match" representedClassName="Match" syncable="YES" codeGenerationType="class">
         <attribute name="duration" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="startDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="events" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Event" inverseName="matche" inverseEntity="Event"/>
         <relationship name="homeTeam" maxCount="1" deletionRule="Nullify" destinationEntity="Team" inverseName="homeMatches" inverseEntity="Team"/>
         <relationship name="visitTeam" maxCount="1" deletionRule="Nullify" destinationEntity="Team" inverseName="visitMatches" inverseEntity="Team"/>
     </entity>
@@ -30,7 +32,7 @@
     <elements>
         <element name="Player" positionX="-54" positionY="18" width="128" height="119"/>
         <element name="Team" positionX="-63" positionY="-18" width="128" height="119"/>
-        <element name="Match" positionX="-63" positionY="45" width="128" height="89"/>
-        <element name="Event" positionX="-54" positionY="54" width="128" height="74"/>
+        <element name="Match" positionX="-63" positionY="45" width="128" height="104"/>
+        <element name="Event" positionX="-54" positionY="54" width="128" height="89"/>
     </elements>
 </model>
