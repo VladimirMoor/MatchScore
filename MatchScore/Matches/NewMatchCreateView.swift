@@ -10,16 +10,21 @@ import CoreData
 
 struct NewMatchCreateView: View {
     
-    @Environment(\.managedObjectContext) var moc
     @FetchRequest(entity: Team.entity(), sortDescriptors: []) var teams: FetchedResults<Team>
     @State private var homeTeamID = NSManagedObjectID()
     @State private var visitTeamID = NSManagedObjectID()
-    @State private var visitTeamName = ""
-    var matchDate = Date()
+
     let oneHalfDurations = [5 ,10 ,20 ,30, 45, 60]
     @State private var oneHalfDuration = 45
+    @State private var isShowMatchView = false
+
+    
     
     var body: some View {
+        
+        NavigationLink(destination: CurrentMatchView(homeTeamID: homeTeamID, visitTeamID: visitTeamID, oneHalfDuration: oneHalfDuration), isActive: $isShowMatchView) {
+            EmptyView()
+        }
         
         Form {
             Picker("Home Team", selection: $homeTeamID) {
@@ -39,6 +44,22 @@ struct NewMatchCreateView: View {
                     Text("\(duration) min.")
                 }
             }
+            
+            
+            Section {
+            Button {
+                
+                isShowMatchView = true
+                print("Hi")
+                
+                
+            } label: {
+                Text("Start the Game!")
+                    .font(.headline)
+                    .frame(maxWidth: .infinity)
+            }
+            }
+
         }
         .navigationTitle("Create new match")
         .navigationBarTitleDisplayMode(.automatic)

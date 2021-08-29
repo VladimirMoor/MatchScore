@@ -11,6 +11,7 @@
 		310E28E926D772B10053DFE0 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310E28E826D772B10053DFE0 /* CoreDataManager.swift */; };
 		310E28EB26D77CA60053DFE0 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310E28EA26D77CA60053DFE0 /* MainView.swift */; };
 		310E28ED26D784C10053DFE0 /* TeamsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310E28EC26D784C10053DFE0 /* TeamsView.swift */; };
+		316412A826DBCF4700C1B3BC /* CurrentMatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316412A726DBCF4700C1B3BC /* CurrentMatchView.swift */; };
 		3166264726D7881C0064BC7F /* NewTeamView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3166264626D7881C0064BC7F /* NewTeamView.swift */; };
 		3166264926D788730064BC7F /* TeamDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3166264826D788730064BC7F /* TeamDetailView.swift */; };
 		3166264C26D797530064BC7F /* PlayersList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3166264B26D797530064BC7F /* PlayersList.swift */; };
@@ -31,6 +32,7 @@
 		310E28E826D772B10053DFE0 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		310E28EA26D77CA60053DFE0 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		310E28EC26D784C10053DFE0 /* TeamsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamsView.swift; sourceTree = "<group>"; };
+		316412A726DBCF4700C1B3BC /* CurrentMatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentMatchView.swift; sourceTree = "<group>"; };
 		3166264626D7881C0064BC7F /* NewTeamView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTeamView.swift; sourceTree = "<group>"; };
 		3166264826D788730064BC7F /* TeamDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamDetailView.swift; sourceTree = "<group>"; };
 		3166264B26D797530064BC7F /* PlayersList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayersList.swift; sourceTree = "<group>"; };
@@ -58,6 +60,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		316412A626DBCEAA00C1B3BC /* Matches */ = {
+			isa = PBXGroup;
+			children = (
+				31C33FEB26D91A7600B0CB23 /* MatchView.swift */,
+				31C33FED26D928D800B0CB23 /* NewMatchCreateView.swift */,
+				31C33FE926D917FE00B0CB23 /* MatchesListView.swift */,
+				316412A726DBCF4700C1B3BC /* CurrentMatchView.swift */,
+			);
+			path = Matches;
+			sourceTree = "<group>";
+		};
 		3166264A26D7969B0064BC7F /* Teams */ = {
 			isa = PBXGroup;
 			children = (
@@ -72,6 +85,7 @@
 		3166264F26D798C50064BC7F /* Players */ = {
 			isa = PBXGroup;
 			children = (
+				3166264D26D7983C0064BC7F /* Player+helper.swift */,
 				3166264B26D797530064BC7F /* PlayersList.swift */,
 				3166265226D7C8A60064BC7F /* NewPlayerView.swift */,
 				3166265026D7990D0064BC7F /* RoleFilterView.swift */,
@@ -99,13 +113,10 @@
 			isa = PBXGroup;
 			children = (
 				319C9CE326D60E5C009150D0 /* MatchScoreApp.swift */,
-				3166264D26D7983C0064BC7F /* Player+helper.swift */,
+				310E28E826D772B10053DFE0 /* CoreDataManager.swift */,
 				319C9CE526D60E5C009150D0 /* ContentView.swift */,
 				310E28EA26D77CA60053DFE0 /* MainView.swift */,
-				31C33FE926D917FE00B0CB23 /* MatchesListView.swift */,
-				31C33FED26D928D800B0CB23 /* NewMatchCreateView.swift */,
-				31C33FEB26D91A7600B0CB23 /* MatchView.swift */,
-				310E28E826D772B10053DFE0 /* CoreDataManager.swift */,
+				316412A626DBCEAA00C1B3BC /* Matches */,
 				3166264A26D7969B0064BC7F /* Teams */,
 				310E28E526D772800053DFE0 /* MatchScoreCoreData.xcdatamodeld */,
 				319C9CE726D60E5D009150D0 /* Assets.xcassets */,
@@ -204,6 +215,7 @@
 				3166264C26D797530064BC7F /* PlayersList.swift in Sources */,
 				3166264926D788730064BC7F /* TeamDetailView.swift in Sources */,
 				3166265326D7C8A60064BC7F /* NewPlayerView.swift in Sources */,
+				316412A826DBCF4700C1B3BC /* CurrentMatchView.swift in Sources */,
 				310E28ED26D784C10053DFE0 /* TeamsView.swift in Sources */,
 				310E28EB26D77CA60053DFE0 /* MainView.swift in Sources */,
 				319C9CE426D60E5C009150D0 /* MatchScoreApp.swift in Sources */,
