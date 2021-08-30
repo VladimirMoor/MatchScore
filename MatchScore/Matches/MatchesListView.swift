@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MatchesListView: View {
-    
+    @Environment(\.managedObjectContext) var moc
     @FetchRequest(entity: Match.entity(), sortDescriptors: []) var matches: FetchedResults<Match>
     @State private var isShowNewMatchView = false
     
@@ -24,6 +24,7 @@ struct MatchesListView: View {
             ForEach(matches) { match in
                 MatchView(match: match)
             }
+            .onDelete(perform: removeMatch)
         }
         
         }
@@ -40,6 +41,14 @@ struct MatchesListView: View {
         .navigationTitle("Matches")
         }
         
+    }
+    
+    func removeMatch(at offsets: IndexSet) {
+        offsets.forEach { index in
+            let match = matches[index]
+            moc.delete(match)
+            try? moc.save()
+        }
     }
 }
 

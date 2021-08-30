@@ -11,9 +11,7 @@ import CoreData
 struct CurrentMatchView: View {
     
     @Environment(\.managedObjectContext) var moc
-    
     @ObservedObject var match: Match
-    
     @State private var time = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     @State private var count = 0
     @State private var matchCurrentTime = "00:00"
@@ -31,17 +29,25 @@ struct CurrentMatchView: View {
         }
 
             HStack(spacing: 50) {
+                
             Button {
-                print("HT event")
+                
+                let newEvent = Event(context: moc)
+                newEvent.team = match.homeTeam
+                newEvent.type = "Goal"
+                newEvent.time = Int16(count)
+                match.addToEvents(newEvent)
+                
+                try? moc.save()
+                print("HT event saved!")
+                
             } label: {
                 Text("HT event")
                     .bold()
                     .padding()
                     .background(Color.green)
                     .clipShape(Capsule())
-
             }
-
 
             Button {
                 print("VT event")
@@ -54,24 +60,18 @@ struct CurrentMatchView: View {
                     .foregroundColor(Color.primary)
                     .clipShape(Capsule())
             }
-
-            }
+    
+         }
+            
+            EventsList(match: match)
 
      }
         .navigationBarHidden(true)
         .onReceive(time) { _ in
-            matchCurrentTime = secondsToString(count)
+            matchCurrentTime = Event.secondsToString(count)
             count += 1
         }
     }
-    
-    func secondsToString(_ seconds: Int) -> String {
-        
-        let formatter = DateComponentsFormatter()
-        formatter.allowedUnits = [.minute, .second]
-        formatter.unitsStyle = .positional
-        formatter.zeroFormattingBehavior = .pad
-        return formatter.string(from: TimeInterval(seconds)) ?? "--"
-    }
+
 }
 
