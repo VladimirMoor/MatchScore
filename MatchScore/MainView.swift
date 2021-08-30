@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct MainView: View {
+    
+    @Environment(\.managedObjectContext) var moc
     var body: some View {
         TabView {
             MatchesListView()

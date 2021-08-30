@@ -10,26 +10,53 @@ import CoreData
 
 struct CurrentMatchView: View {
     
-    @ObservedObject var homeTeam: Team
-    @ObservedObject var visitTeam: Team
-
+    @Environment(\.managedObjectContext) var moc
+    
+    @ObservedObject var match: Match
+    
     @State private var time = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     @State private var count = 0
     @State private var matchCurrentTime = "00:00"
 
     var body: some View {
+
         VStack {
+            
         HStack {
-        Text(homeTeam.name ?? "")
+            Text(match.homeTeam?.name ?? "" )
         Text(matchCurrentTime)
                 .font(.headline)
                 .padding()
-        Text(visitTeam.name ?? "")
+            Text(match.visitTeam?.name ?? "")
         }
-            
-            
-            
-            
+
+            HStack(spacing: 50) {
+            Button {
+                print("HT event")
+            } label: {
+                Text("HT event")
+                    .bold()
+                    .padding()
+                    .background(Color.green)
+                    .clipShape(Capsule())
+
+            }
+
+
+            Button {
+                print("VT event")
+
+            } label: {
+                Text("VT event")
+                    .bold()
+                    .padding()
+                    .background(Color.blue)
+                    .foregroundColor(Color.primary)
+                    .clipShape(Capsule())
+            }
+
+            }
+
      }
         .navigationBarHidden(true)
         .onReceive(time) { _ in
