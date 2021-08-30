@@ -10,24 +10,32 @@ import CoreData
 
 struct CurrentMatchView: View {
     
-    let homeTeamID: NSManagedObjectID
-    let visitTeamID: NSManagedObjectID
-    let oneHalfDuration: Int
-    let startMatchDate = Date()
+    @ObservedObject var homeTeam: Team
+    @ObservedObject var visitTeam: Team
+
     @State private var time = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     @State private var count = 0
-    @State private var matchCurrentTime = ""
-    
+    @State private var matchCurrentTime = "00:00"
+
     var body: some View {
         VStack {
-            Text(matchCurrentTime)
+        HStack {
+        Text(homeTeam.name ?? "")
+        Text(matchCurrentTime)
+                .font(.headline)
+                .padding()
+        Text(visitTeam.name ?? "")
         }
-        .onReceive(time) { _ in
             
-            count += 1
+            
+            
+            
+     }
+        .navigationBarHidden(true)
+        .onReceive(time) { _ in
             matchCurrentTime = secondsToString(count)
+            count += 1
         }
-        
     }
     
     func secondsToString(_ seconds: Int) -> String {
