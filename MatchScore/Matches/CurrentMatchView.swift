@@ -15,6 +15,8 @@ struct CurrentMatchView: View {
     @State private var time = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     @State private var count = 0
     @State private var matchCurrentTime = "00:00"
+    @State private var isShowNewEventSheet = false
+    @State private var isHomeTeameEvent = true
 
     var body: some View {
 
@@ -31,15 +33,16 @@ struct CurrentMatchView: View {
             HStack(spacing: 50) {
                 
             Button {
-                
-                let newEvent = Event(context: moc)
-                newEvent.team = match.homeTeam
-                newEvent.type = "Goal"
-                newEvent.time = Int16(count)
-                match.addToEvents(newEvent)
-                
-                try? moc.save()
-                print("HT event saved!")
+                isHomeTeameEvent = true
+                isShowNewEventSheet = true
+//                let newEvent = Event(context: moc)
+//                newEvent.team = match.homeTeam
+//                newEvent.type = "Goal"
+//                newEvent.time = Int16(count)
+//                match.addToEvents(newEvent)
+//
+//                try? moc.save()
+//                print("HT event saved!")
                 
             } label: {
                 Text("HT event")
@@ -50,7 +53,8 @@ struct CurrentMatchView: View {
             }
 
             Button {
-                print("VT event")
+                isHomeTeameEvent = false
+                isShowNewEventSheet = true
 
             } label: {
                 Text("VT event")
@@ -62,15 +66,19 @@ struct CurrentMatchView: View {
             }
     
          }
+            .sheet(isPresented: $isShowNewEventSheet) {
+                NewEventSheet(match: match, isHomeTeameEvent: isHomeTeameEvent, count: count)
+            }
             
             EventsList(match: match)
-
      }
+        
         .navigationBarHidden(true)
         .onReceive(time) { _ in
             matchCurrentTime = Event.secondsToString(count)
             count += 1
         }
+        
     }
 
 }

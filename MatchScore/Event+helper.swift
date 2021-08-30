@@ -8,7 +8,7 @@
 import Foundation
 
 extension Event {
-    static let bossibleEvents = ["Goal", "Red card", "Yellow card"]
+    static let possibleEvents = ["Goal", "Yellow card", "Red card"]
     
     static func secondsToString(_ seconds: Int) -> String {
         let formatter = DateComponentsFormatter()
