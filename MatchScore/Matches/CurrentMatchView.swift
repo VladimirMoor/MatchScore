@@ -16,7 +16,7 @@ struct CurrentMatchView: View {
     @State private var count = 0
     @State private var matchCurrentTime = "00:00"
     @State private var isShowNewEventSheet = false
-    @State private var isHomeTeameEvent = true
+    @State private var isHomeTeamEvent = true
 
     var body: some View {
 
@@ -33,16 +33,8 @@ struct CurrentMatchView: View {
             HStack(spacing: 50) {
                 
             Button {
-                isHomeTeameEvent = true
+                isHomeTeamEvent = true
                 isShowNewEventSheet = true
-//                let newEvent = Event(context: moc)
-//                newEvent.team = match.homeTeam
-//                newEvent.type = "Goal"
-//                newEvent.time = Int16(count)
-//                match.addToEvents(newEvent)
-//
-//                try? moc.save()
-//                print("HT event saved!")
                 
             } label: {
                 Text("HT event")
@@ -53,7 +45,7 @@ struct CurrentMatchView: View {
             }
 
             Button {
-                isHomeTeameEvent = false
+                isHomeTeamEvent = false
                 isShowNewEventSheet = true
 
             } label: {
@@ -67,7 +59,7 @@ struct CurrentMatchView: View {
     
          }
             .sheet(isPresented: $isShowNewEventSheet) {
-                NewEventSheet(match: match, isHomeTeameEvent: isHomeTeameEvent, count: count)
+                NewEventSheet(match: match, isHomeTeamEvent: isHomeTeamEvent, count: count)
             }
             
             EventsList(match: match)

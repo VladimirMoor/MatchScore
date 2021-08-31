@@ -52,7 +52,7 @@ struct NewMatchCreateView: View {
                     Section {
                         Button {
                             // TODO: Check if both teams not nill and not the same team!!!
-
+                       
                             match = Match(context: moc)
                             match.oneHalfDuration = Int16(oneHalfDuration)
                             match.homeTeam = homeTeam
@@ -70,9 +70,12 @@ struct NewMatchCreateView: View {
                                 .font(.headline)
                                 .frame(maxWidth: .infinity)
                         }
+                        .disabled(homeTeam.managedObjectContext == nil || visitTeam.managedObjectContext == nil)
+                        
                     }
 
                 }
+                
         }
         .navigationTitle("Create Match")
         }
