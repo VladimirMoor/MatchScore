@@ -17,17 +17,40 @@ struct CurrentMatchView: View {
     @State private var matchCurrentTime = "00:00"
     @State private var isShowNewEventSheet = false
     @State private var isHomeTeamEvent = true
+    
+    var homeTeamGoals: Int {
+        if let events = match.events?.allObjects as? [Event] {
+            return events.filter { ($0.type == "Goal") && ($0.team == match.homeTeam) }.count
+        } else { return 0 }
+    }
+    
+    var visitTeamGoals: Int {
+        if let events = match.events?.allObjects as? [Event] {
+            return events.filter { ($0.type == "Goal") && ($0.team == match.visitTeam) }.count
+        } else { return 0 }
+    }
 
+    
     var body: some View {
 
         VStack {
             
         HStack {
+            VStack {
             Text(match.homeTeam?.name ?? "" )
-        Text(matchCurrentTime)
+            Text("\(homeTeamGoals)")
+                .font(.largeTitle)
+            }
+            
+            Text(matchCurrentTime)
                 .font(.headline)
                 .padding()
+            
+            VStack {
             Text(match.visitTeam?.name ?? "")
+            Text("\(visitTeamGoals)")
+                .font(.largeTitle)
+            }
         }
 
             HStack(spacing: 50) {
@@ -58,7 +81,7 @@ struct CurrentMatchView: View {
             }
     
          }
-            .sheet(isPresented: $isShowNewEventSheet) {
+         .sheet(isPresented: $isShowNewEventSheet) {
                 NewEventSheet(match: match, isHomeTeamEvent: isHomeTeamEvent, count: count)
             }
             

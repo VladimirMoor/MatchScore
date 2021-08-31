@@ -28,9 +28,11 @@ struct EventsList: View {
         List {
             ForEach(events) { event in
                 HStack {
-                    Text("\(event.time)")
+                    Text("\(event.time) - ")
                     Text(event.type ?? "")
+                        .bold()
                     Text(event.author?.fullName ?? "No name")
+                    Text("[ \(Int(event.author?.number ?? 0)) ]")
                 }
             }
         }

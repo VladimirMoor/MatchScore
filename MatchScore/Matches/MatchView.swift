@@ -22,12 +22,10 @@ struct MatchView: View {
             events = []
         }
         
-        homeTeamGoals = events.filter { $0.type == "homeTeamGoal" }.count
-        visitTeamGoals = events.filter { $0.type == "visitTeamGoal" }.count
+        homeTeamGoals = events.filter { ($0.type == "Goal") && ($0.team == match.homeTeam) }.count
+        visitTeamGoals = events.filter { ($0.type == "Goal") && ($0.team == match.visitTeam) }.count
         
         self.match = match
-        
-        
     }
     
     var body: some View {
@@ -35,6 +33,7 @@ struct MatchView: View {
                 HStack {
                     
                 Text(match.homeTeam?.name ?? "")
+                Text(" - ")
                 Text(match.visitTeam?.name ?? "")
                 Text("\(homeTeamGoals) : \(visitTeamGoals)")
                     
