@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19197" systemVersion="20G95" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Event" representedClassName="Event" syncable="YES" codeGenerationType="class">
-        <attribute name="time" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="type" attributeType="String"/>
         <relationship name="author" maxCount="1" deletionRule="Nullify" destinationEntity="Player" inverseName="events" inverseEntity="Player"/>
+        <relationship name="gameTimer" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GameTimer" inverseName="event" inverseEntity="GameTimer"/>
         <relationship name="match" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Match" inverseName="events" inverseEntity="Match"/>
         <relationship name="team" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Team" inverseName="events" inverseEntity="Team"/>
+    </entity>
+    <entity name="GameTimer" representedClassName="GameTimer" syncable="YES" codeGenerationType="class">
+        <attribute name="firstHalfExtraTimer" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="firstHalfTimer" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="secondHalfExtraTimer" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="secondHalfTimer" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="event" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Event" inverseName="gameTimer" inverseEntity="Event"/>
     </entity>
     <entity name="Match" representedClassName="Match" syncable="YES" codeGenerationType="class">
         <attribute name="oneHalfDuration" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
@@ -36,5 +43,6 @@
         <element name="Match" positionX="-63" positionY="45" width="128" height="104"/>
         <element name="Player" positionX="-54" positionY="18" width="128" height="119"/>
         <element name="Team" positionX="-63" positionY="-18" width="128" height="134"/>
+        <element name="GameTimer" positionX="-54" positionY="63" width="128" height="104"/>
     </elements>
 </model>

@@ -65,7 +65,7 @@ struct NewEventSheet: View {
                     newEvent.team = isHomeTeamEvent ? match.homeTeam : match.visitTeam
                     newEvent.author = author
                     newEvent.type = type
-                    newEvent.time = Int16(count)
+                  //  newEvent.time = Int16(count)
                     
                     try? existingMoc.save()
                     

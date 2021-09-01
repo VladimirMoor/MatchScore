@@ -38,6 +38,7 @@ struct MainView: View {
                     Label("Stats", systemImage: "text.book.closed")
                 }
         }
+        
     }
 }
 

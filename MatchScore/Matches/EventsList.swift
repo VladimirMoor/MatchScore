@@ -16,7 +16,8 @@ struct EventsList: View {
         
         if let allEvents = match.events?.allObjects as? [Event] {
             events = allEvents.sorted(by: {
-                $0.time < $1.time
+                $0.type! < $1.type!
+              //  $0.time < $1.time
             })
         } else {
             events = []
@@ -28,7 +29,7 @@ struct EventsList: View {
         List {
             ForEach(events) { event in
                 HStack {
-                    Text("\(event.time) - ")
+               //     Text("\(event.time) - ")
                     Text(event.type ?? "")
                         .bold()
                     Text(event.author?.fullName ?? "No name")

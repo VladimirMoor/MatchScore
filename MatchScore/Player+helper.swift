@@ -8,5 +8,5 @@
 import Foundation
 
 extension Player {
-    static let possibleRoles = ["Goalkeeper", "Defender", "Midfielder", "Forward", "Left winger", "Right winger"]
+    static let possibleRoles = ["Goalkeeper", "Defender", "Midfielder", "Forward"]
 }
