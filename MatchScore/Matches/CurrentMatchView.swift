@@ -117,7 +117,6 @@ struct CurrentMatchView: View {
                 newGameTime.firstHalfExtraTimer = Int16(firstHalfAddTimer)
                 newGameTime.secondHalfTimer = Int16(secondHalfTimer)
                 newGameTime.secondHalfExtraTimer = Int16(secondHalfAddTimer)
-                
 
                 isHomeTeamEvent = false
                 isShowNewEventSheet = true

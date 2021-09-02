@@ -28,6 +28,7 @@
 		31C33FEA26D917FE00B0CB23 /* MatchesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C33FE926D917FE00B0CB23 /* MatchesListView.swift */; };
 		31C33FEC26D91A7600B0CB23 /* MatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C33FEB26D91A7600B0CB23 /* MatchView.swift */; };
 		31C33FEE26D928D800B0CB23 /* NewMatchCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C33FED26D928D800B0CB23 /* NewMatchCreateView.swift */; };
+		31D16D6726E0F77300A38A40 /* TimeStamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D16D6626E0F77300A38A40 /* TimeStamp.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +54,7 @@
 		31C33FE926D917FE00B0CB23 /* MatchesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchesListView.swift; sourceTree = "<group>"; };
 		31C33FEB26D91A7600B0CB23 /* MatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchView.swift; sourceTree = "<group>"; };
 		31C33FED26D928D800B0CB23 /* NewMatchCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMatchCreateView.swift; sourceTree = "<group>"; };
+		31D16D6626E0F77300A38A40 /* TimeStamp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeStamp.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +76,7 @@
 				31C33FE926D917FE00B0CB23 /* MatchesListView.swift */,
 				316412A726DBCF4700C1B3BC /* CurrentMatchView.swift */,
 				316412AB26DD1E7D00C1B3BC /* EventsList.swift */,
+				31D16D6626E0F77300A38A40 /* TimeStamp.swift */,
 				316412AF26DD325A00C1B3BC /* NewEventSheet.swift */,
 			);
 			path = Matches;
@@ -218,6 +221,7 @@
 				31C33FEA26D917FE00B0CB23 /* MatchesListView.swift in Sources */,
 				31C33FEE26D928D800B0CB23 /* NewMatchCreateView.swift in Sources */,
 				3166264E26D7983C0064BC7F /* Player+helper.swift in Sources */,
+				31D16D6726E0F77300A38A40 /* TimeStamp.swift in Sources */,
 				316412B026DD325A00C1B3BC /* NewEventSheet.swift in Sources */,
 				31C33FEC26D91A7600B0CB23 /* MatchView.swift in Sources */,
 				3166264726D7881C0064BC7F /* NewTeamView.swift in Sources */,
