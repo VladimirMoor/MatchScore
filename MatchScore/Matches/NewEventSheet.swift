@@ -8,31 +8,27 @@
 import SwiftUI
 
 struct NewEventSheet: View {
+    
     @Environment(\.presentationMode) var presentationMode
-    @ObservedObject var match: Match
-    let isHomeTeamEvent: Bool
-    let count: Int
+    
     @State private var type = "Goal"
     @State private var author: Player = Player()
-    var thisTeamPlayers: [Player] = []
+    @ObservedObject var match: Match
+    @ObservedObject var moment: GameTimer
+    var isHomeTeamEvent: Bool
     
-    init(match: Match, isHomeTeamEvent: Bool, count: Int) {
-        self.match = match
-        self.isHomeTeamEvent = isHomeTeamEvent
-        self.count = count
-        
+    var players: [Player] {
         if isHomeTeamEvent {
-            if let players = match.homeTeam?.players?.allObjects as? [Player] {
-                thisTeamPlayers = players
-            }
+        if let allPlayers = match.homeTeam?.players?.allObjects as? [Player] {
+            return allPlayers
+        } else { return [] }
         } else {
-            if let players = match.visitTeam?.players?.allObjects as? [Player] {
-                thisTeamPlayers = players
-            }
+            if let allPlayers = match.visitTeam?.players?.allObjects as? [Player] {
+                return allPlayers
+            } else { return [] }
+        }
     }
-    }
-    
-    
+
     var body: some View {
         
         NavigationView {
@@ -50,7 +46,7 @@ struct NewEventSheet: View {
             
             Section {
                 Picker("Choose event's author", selection: $author) {
-                    ForEach(thisTeamPlayers) { player in
+                    ForEach(players) { player in
                         
                         Text(player.fullName ?? "").tag(player)
                     }
@@ -58,30 +54,25 @@ struct NewEventSheet: View {
             }
             
             Button {
+  
+                let newEvent = Event(context: match.managedObjectContext!)
+                newEvent.match = match
+                newEvent.author = author
+                newEvent.team = isHomeTeamEvent ? match.homeTeam : match.visitTeam
+                newEvent.type = type
+                newEvent.gameTimer = moment
+                newEvent.date = Date()
                 
-                if let existingMoc = match.managedObjectContext {
-                    let newEvent = Event(context: existingMoc)
-                    newEvent.match = match
-                    newEvent.team = isHomeTeamEvent ? match.homeTeam : match.visitTeam
-                    newEvent.author = author
-                    newEvent.type = type
-                  //  newEvent.time = Int16(count)
-                    
-                    try? existingMoc.save()
-                    
-                    presentationMode.wrappedValue.dismiss()
-                }
+                try? newEvent.managedObjectContext?.save()
+                
+                presentationMode.wrappedValue.dismiss()
                 
             } label: {
                 Text("Save")
                     .frame(maxWidth: .infinity)
             }
             .disabled(author.managedObjectContext == nil)
-            
 
-            
-            
-            
         }
         }
         

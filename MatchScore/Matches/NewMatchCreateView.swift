@@ -15,6 +15,7 @@ struct NewMatchCreateView: View {
     @State private var homeTeam: Team = Team()
     @State private var visitTeam: Team = Team()
     @State private var match: Match = Match()
+
     
     let oneHalfDurations = [1, 5 ,10 ,20 ,30, 45, 60]
     @State private var oneHalfDuration = 45
@@ -51,7 +52,6 @@ struct NewMatchCreateView: View {
 
                     Section {
                         Button {
-                            // TODO: Check if both teams not nill and not the same team!!!
                        
                             match = Match(context: moc)
                             match.oneHalfDuration = Int16(oneHalfDuration)
@@ -62,8 +62,6 @@ struct NewMatchCreateView: View {
                             try? moc.save()
 
                             isShowMatchView = true
-                            print("Hi")
-
 
                         } label: {
                             Text("Start the Game!")

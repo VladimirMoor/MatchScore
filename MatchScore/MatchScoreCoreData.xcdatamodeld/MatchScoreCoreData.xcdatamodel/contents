@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19197" systemVersion="20G95" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Event" representedClassName="Event" syncable="YES" codeGenerationType="class">
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="type" attributeType="String"/>
         <relationship name="author" maxCount="1" deletionRule="Nullify" destinationEntity="Player" inverseName="events" inverseEntity="Player"/>
         <relationship name="gameTimer" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GameTimer" inverseName="event" inverseEntity="GameTimer"/>
@@ -39,10 +40,10 @@
         <relationship name="visitMatches" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Match" inverseName="visitTeam" inverseEntity="Match"/>
     </entity>
     <elements>
-        <element name="Event" positionX="-54" positionY="54" width="128" height="104"/>
+        <element name="Event" positionX="-54" positionY="54" width="128" height="119"/>
+        <element name="GameTimer" positionX="-54" positionY="63" width="128" height="104"/>
         <element name="Match" positionX="-63" positionY="45" width="128" height="104"/>
         <element name="Player" positionX="-54" positionY="18" width="128" height="119"/>
         <element name="Team" positionX="-63" positionY="-18" width="128" height="134"/>
-        <element name="GameTimer" positionX="-54" positionY="63" width="128" height="104"/>
     </elements>
 </model>

@@ -13,18 +13,27 @@ struct CurrentMatchView: View {
     @Environment(\.managedObjectContext) var moc
     @ObservedObject var match: Match
     @State private var time = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    
     @State private var firstHalfTimer = 0
     @State private var firstHalfAddTimer = 0
-
     @State private var secondHalfTimer = 0
     @State private var secondHalfAddTimer = 0
-//    @State private var count = 0
-//    @State private var matchCurrentTime = "00:00"
+    
     @State private var isShowNewEventSheet = false
-    @State private var isHomeTeamEvent = true
+    
+    @State private var isFirstHalfStart = false
     @State private var isFirstHalfEnd = false
     @State private var isSecondHalfStart = false
+    @State private var isSecondHalfEnd = false
+    @State private var isMatchEnd = false
+    
     @State private var counter = 0
+    @State private var newEvent: Event = Event()
+    
+    @State private var choosedTeam: Team = Team()
+    @State private var newGameTime = GameTimer()
+    
+    @State private var isHomeTeamEvent = true
     
     
     var homeTeamGoals: Int {
@@ -82,9 +91,17 @@ struct CurrentMatchView: View {
             HStack(spacing: 50) {
                 
             Button {
+
+                newGameTime = GameTimer(context: moc)
+                newGameTime.firstHalfTimer = Int16(firstHalfTimer)
+                newGameTime.firstHalfExtraTimer = Int16(firstHalfAddTimer)
+                newGameTime.secondHalfTimer = Int16(secondHalfTimer)
+                newGameTime.secondHalfExtraTimer = Int16(secondHalfAddTimer)
+               
+                
                 isHomeTeamEvent = true
                 isShowNewEventSheet = true
-                
+
             } label: {
                 Text("HT event")
                     .bold()
@@ -94,6 +111,14 @@ struct CurrentMatchView: View {
             }
 
             Button {
+                
+                newGameTime = GameTimer(context: moc)
+                newGameTime.firstHalfTimer = Int16(firstHalfTimer)
+                newGameTime.firstHalfExtraTimer = Int16(firstHalfAddTimer)
+                newGameTime.secondHalfTimer = Int16(secondHalfTimer)
+                newGameTime.secondHalfExtraTimer = Int16(secondHalfAddTimer)
+                
+
                 isHomeTeamEvent = false
                 isShowNewEventSheet = true
 
@@ -108,16 +133,16 @@ struct CurrentMatchView: View {
     
          }
          .sheet(isPresented: $isShowNewEventSheet) {
-               // NewEventSheet(match: match, isHomeTeamEvent: isHomeTeamEvent, count: count)
+             NewEventSheet(match: match, moment: newGameTime, isHomeTeamEvent: isHomeTeamEvent )
             }
             
-          //  EventsList(match: match)
+        EventsList(match: match)
+            
+            
      }
-        
         .navigationBarHidden(true)
         .onReceive(time) { _ in
-//            matchCurrentTime = Event.secondsToString(count)
-            
+
             
             if isFirstHalfEnd == false {
                 
