@@ -33,6 +33,7 @@ struct CurrentMatchView: View {
     @State private var newGameTime = GameTimer()
     
     @State private var isHomeTeamEvent = true
+    @State private var to: CGFloat = 0
     
     
     var homeTeamGoals: Int {
@@ -61,12 +62,27 @@ struct CurrentMatchView: View {
             }
             .background(Color.yellow)
             
-
-            Text("\(firstHalfTimer)-\(firstHalfAddTimer)-\(secondHalfTimer)-\(secondHalfAddTimer)")
-                .frame(maxWidth: 100)
-                .font(.headline)
-                .padding()
-                .background(Color.green)
+            VStack {
+            ZStack {
+                Circle()
+                    .trim(from: 0, to: 1)
+                    .stroke(Color.black.opacity(0.1), style: StrokeStyle(lineWidth: 7))
+                    .frame(width: 150, height: 150)
+                
+                Circle()
+                    .trim(from: 0, to: to)
+                    .stroke(Color.red, style: StrokeStyle(lineWidth: 7, lineCap: .round))
+                    .frame(width: 150, height: 150)
+                    .rotationEffect(Angle(degrees: -90))
+             }
+            }
+            
+            
+//            Text("\(firstHalfTimer)-\(firstHalfAddTimer)-\(secondHalfTimer)-\(secondHalfAddTimer)")
+//                .frame(maxWidth: 100)
+//                .font(.headline)
+//                .padding()
+//                .background(Color.green)
             
             VStack {
             Text(match.visitTeam?.name ?? "")
@@ -123,8 +139,6 @@ struct CurrentMatchView: View {
                 }
                 .disabled( (firstHalfTimer > 0 && firstHalfAddTimer == 0) || (secondHalfTimer > 0 && secondHalfAddTimer == 0) )
 
-            
-
             HStack(spacing: 50) {
                 
             Button {
@@ -163,33 +177,36 @@ struct CurrentMatchView: View {
                 Text("VT event")
                     .bold()
                     .padding()
-                    .background(Color.blue)
-                    .foregroundColor(Color.primary)
+                    .background(Color.yellow)
                     .clipShape(Capsule())
             }
             .disabled(!(isFirstHalfGoing || isSecondHalfGoing))
     
          }
-         .sheet(isPresented: $isShowNewEventSheet) {
-             NewEventSheet(match: match, moment: newGameTime, isHomeTeamEvent: isHomeTeamEvent )
-            }
             
-        EventsList(match: match)
+            Text("Hello list")
             
+            EventsList(match: match)
+                .sheet(isPresented: $isShowNewEventSheet) {
+                    NewEventSheet(match: match, moment: newGameTime, isHomeTeamEvent: isHomeTeamEvent )
+                   }
+
             
      }
         .navigationBarHidden(true)
         .onReceive(time) { _ in
 
+            to = CGFloat(firstHalfTimer + secondHalfCounter) / CGFloat(match.oneHalfDuration * 120)
             
             if isFirstHalfGoing == true {
                 
                 if firstHalfTimer < match.oneHalfDuration * 60 {
                     firstHalfTimer += 1
+                    
                 } else {
                     firstHalfAddTimer += 1
                 }
-            
+
             } else {
                 
                 if isSecondHalfGoing {
