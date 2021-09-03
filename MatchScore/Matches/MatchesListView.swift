@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MatchesListView: View {
     @Environment(\.managedObjectContext) var moc
-    @FetchRequest(entity: Match.entity(), sortDescriptors: []) var matches: FetchedResults<Match>
+    @FetchRequest(entity: Match.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Match.startDate, ascending: true)]) var matches: FetchedResults<Match>
     @State private var isShowNewMatchView = false
     
     var body: some View {

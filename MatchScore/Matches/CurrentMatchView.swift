@@ -21,15 +21,14 @@ struct CurrentMatchView: View {
     
     @State private var isShowNewEventSheet = false
     
-    @State private var isFirstHalfStart = false
-    @State private var isFirstHalfEnd = false
-    @State private var isSecondHalfStart = false
-    @State private var isSecondHalfEnd = false
-    @State private var isMatchEnd = false
+    @State private var isFirstHalfGoing = false
+    @State private var isSecondHalfGoing = false
+    @State private var isBreak = false
+    @State private var breakCounter = 0
+    @State private var matchIsOver = false
+    @State private var secondHalfCounter = 0
     
-    @State private var counter = 0
     @State private var newEvent: Event = Event()
-    
     @State private var choosedTeam: Team = Team()
     @State private var newGameTime = GameTimer()
     
@@ -78,15 +77,53 @@ struct CurrentMatchView: View {
             .background(Color.blue)
         }
             
-            HStack {
-                Button("Stop first half") {
-                    isFirstHalfEnd = true
+            if matchIsOver {
+                Text("Match is over")
+            }
+         
+            Button {
+                
+                if firstHalfAddTimer > 0 {
+                    isFirstHalfGoing = false
+                    
+                    if breakCounter > 0 {
+                        isBreak = false
+                        
+                        if secondHalfAddTimer > 0 {
+                            isSecondHalfGoing = false
+                            matchIsOver = true
+                            
+                            try? moc.save()
+                            
+                        } else {
+                            isSecondHalfGoing = true
+                        }
+
+                    } else {
+                        isBreak = true
+                    }
+
+                } else {
+                    isFirstHalfGoing = true
                 }
                 
-                Button("Start second half") {
-                    isSecondHalfStart = true
+            } label: {
+                    HStack {
+                        
+                        if !matchIsOver {
+                        switch(isFirstHalfGoing, isSecondHalfGoing, isBreak) {
+                        case (false, false, false): Text("Start first half")
+                        case (true, false, false): Text("Stop first half")
+                        case(false, false, true): Text("Start second half")
+                        case(false, true, false): Text("Stop second half")
+                        default: Text("??? Is it possible case???? ")
+                        }
+                        }
+                    }
                 }
-            }
+                .disabled( (firstHalfTimer > 0 && firstHalfAddTimer == 0) || (secondHalfTimer > 0 && secondHalfAddTimer == 0) )
+
+            
 
             HStack(spacing: 50) {
                 
@@ -109,6 +146,7 @@ struct CurrentMatchView: View {
                     .background(Color.green)
                     .clipShape(Capsule())
             }
+            .disabled(!(isFirstHalfGoing || isSecondHalfGoing))
 
             Button {
                 
@@ -129,6 +167,7 @@ struct CurrentMatchView: View {
                     .foregroundColor(Color.primary)
                     .clipShape(Capsule())
             }
+            .disabled(!(isFirstHalfGoing || isSecondHalfGoing))
     
          }
          .sheet(isPresented: $isShowNewEventSheet) {
@@ -143,7 +182,7 @@ struct CurrentMatchView: View {
         .onReceive(time) { _ in
 
             
-            if isFirstHalfEnd == false {
+            if isFirstHalfGoing == true {
                 
                 if firstHalfTimer < match.oneHalfDuration * 60 {
                     firstHalfTimer += 1
@@ -153,14 +192,18 @@ struct CurrentMatchView: View {
             
             } else {
                 
-                if isSecondHalfStart == true {
-                    counter += 1
+                if isSecondHalfGoing {
+                    secondHalfCounter += 1
                     if secondHalfTimer < match.oneHalfDuration * 2 * 60 {
-                    secondHalfTimer = Int(match.oneHalfDuration * 60) + counter
+                    secondHalfTimer = Int(match.oneHalfDuration * 60) + secondHalfCounter
                     } else {
                         secondHalfAddTimer += 1
                     }
                 }
+            }
+            
+            if isBreak {
+                breakCounter += 1
             }
             
 
