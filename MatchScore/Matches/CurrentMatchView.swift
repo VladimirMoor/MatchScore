@@ -54,15 +54,12 @@ struct CurrentMatchView: View {
         VStack {
             
         HStack {
-            VStack {
-            Text(match.homeTeam?.name ?? "" )
-            Text("\(homeTeamGoals)")
-                .frame(maxWidth: .infinity)
-                .font(.largeTitle)
-            }
-            .background(Color.yellow)
             
-            VStack {
+            Text(match.homeTeam?.name ?? "")
+                .padding()
+                .background(Color.yellow)
+                .frame(maxWidth: .infinity)
+            
             ZStack {
                 Circle()
                     .trim(from: 0, to: 1)
@@ -74,23 +71,17 @@ struct CurrentMatchView: View {
                     .stroke(Color.red, style: StrokeStyle(lineWidth: 7, lineCap: .round))
                     .frame(width: 150, height: 150)
                     .rotationEffect(Angle(degrees: -90))
+                
+                VStack {
+                    Text("\(homeTeamGoals) : \(visitTeamGoals)")
+                        .font(.largeTitle)
+                }
              }
-            }
-            
-            
-//            Text("\(firstHalfTimer)-\(firstHalfAddTimer)-\(secondHalfTimer)-\(secondHalfAddTimer)")
-//                .frame(maxWidth: 100)
-//                .font(.headline)
-//                .padding()
-//                .background(Color.green)
-            
-            VStack {
+
             Text(match.visitTeam?.name ?? "")
-            Text("\(visitTeamGoals)")
+                .padding()
+                .background(Color.blue)
                 .frame(maxWidth: .infinity)
-                .font(.largeTitle)
-            }
-            .background(Color.blue)
         }
             
             if matchIsOver {
