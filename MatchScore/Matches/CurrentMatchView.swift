@@ -36,6 +36,7 @@ struct CurrentMatchView: View {
     
     @State private var isHomeTeamEvent = true
     @State private var to: CGFloat = 0
+    @State private var isStopMatchActionSheetShow = false
     
     
     var homeTeamGoals: Int {
@@ -54,12 +55,23 @@ struct CurrentMatchView: View {
     var body: some View {
 
         VStack {
+            HStack {
+                Spacer()
+            Button {
+                isStopMatchActionSheetShow = true
+            } label: {
+                Image(systemName: "stop.circle")
+            }
+            .padding(.trailing, 30)
+            .scaleEffect(1.5)
+            }
+            
+            Spacer()
                         
             HStack {
             
             Text(match.homeTeam?.name ?? "")
                 .padding()
-                .background(Color.yellow)
                 .frame(maxWidth: .infinity)
             
                 ZStack(alignment: .circleAndText) {
@@ -82,13 +94,16 @@ struct CurrentMatchView: View {
                 VStack {
                     
                     if isFirstHalfGoing && firstHalfAddTimer > 0 {
-                        Text(Event.secondsToString(firstHalfAddTimer))
+                        Text("+" + Event.secondsToString(firstHalfAddTimer))
+                            .font(.caption)
+                            
 
                     } else if secondHalfAddTimer > 0 {
-                        Text(Event.secondsToString(secondHalfAddTimer))
+                        Text("+" + Event.secondsToString(secondHalfAddTimer))
+                            .font(.caption)
 
                     } else {
-                        Text("")
+                        EmptyView()
                      }
                     
                     Text(Event.secondsToString(secondHalfTimer > 0 ? secondHalfTimer : firstHalfTimer))
@@ -115,57 +130,14 @@ struct CurrentMatchView: View {
 
             Text(match.visitTeam?.name ?? "")
                 .padding()
-                .background(Color.blue)
                 .frame(maxWidth: .infinity)
         }
-            
+ 
             if matchIsOver {
                 Text("Match is over")
             }
-         
-            Button {
-                
-                if firstHalfAddTimer > 0 {
-                    isFirstHalfGoing = false
-                    
-                    if breakCounter > 0 {
-                        isBreak = false
-                        
-                        if secondHalfAddTimer > 0 {
-                            isSecondHalfGoing = false
-                            matchIsOver = true
-                            
-                            try? moc.save()
-                            
-                        } else {
-                            isSecondHalfGoing = true
-                        }
-
-                    } else {
-                        isBreak = true
-                    }
-
-                } else {
-                    isFirstHalfGoing = true
-                }
-                
-            } label: {
-                    HStack {
-                        
-                        if !matchIsOver {
-                        switch(isFirstHalfGoing, isSecondHalfGoing, isBreak) {
-                        case (false, false, false): Text("Start first half")
-                        case (true, false, false): Text("Stop first half")
-                        case(false, false, true): Text("Start second half")
-                        case(false, true, false): Text("Stop second half")
-                        default: EmptyView()
-                        }
-                        }
-                    }
-                }
-                .disabled( (firstHalfTimer > 0 && firstHalfAddTimer == 0) || (secondHalfTimer > 0 && secondHalfAddTimer == 0) )
-
-            HStack(spacing: 50) {
+            
+            HStack {
                 
             Button {
 
@@ -179,14 +151,57 @@ struct CurrentMatchView: View {
                 isShowNewEventSheet = true
 
             } label: {
-                Text("HT event")
-                    .bold()
-                    .padding()
-                    .background(Color.green)
-                    .clipShape(Capsule())
+                Image(systemName: "plus.circle")
+                    .scaleEffect(3)
+                    .frame(maxWidth: .infinity)
+                
             }
             .disabled(!(isFirstHalfGoing || isSecondHalfGoing))
 
+                
+                Button {
+                    
+                    if firstHalfAddTimer > 0 {
+                        isFirstHalfGoing = false
+                        
+                        if breakCounter > 0 {
+                            isBreak = false
+                            
+                            if secondHalfAddTimer > 0 {
+                                isSecondHalfGoing = false
+                                matchIsOver = true
+                                
+                                try? moc.save()
+                                
+                            } else {
+                                isSecondHalfGoing = true
+                            }
+
+                        } else {
+                            isBreak = true
+                        }
+
+                    } else {
+                        isFirstHalfGoing = true
+                    }
+                    
+                } label: {
+                        HStack {
+                            
+                            if !matchIsOver {
+                            switch(isFirstHalfGoing, isSecondHalfGoing, isBreak) {
+                            case (false, false, false): Text("Start first half")
+                            case (true, false, false): Text("Stop first half")
+                            case(false, false, true): Text("Start second half")
+                            case(false, true, false): Text("Stop second half")
+                            default: EmptyView()
+                            }
+                            }
+                        }
+                    }
+                    .disabled( (firstHalfTimer > 0 && firstHalfAddTimer == 0) || (secondHalfTimer > 0 && secondHalfAddTimer == 0) )
+                    .frame(maxWidth: .infinity)
+                
             Button {
                 
                 newGameTime = GameTimer(context: moc)
@@ -199,15 +214,14 @@ struct CurrentMatchView: View {
                 isShowNewEventSheet = true
 
             } label: {
-                Text("VT event")
-                    .bold()
-                    .padding()
-                    .background(Color.yellow)
-                    .clipShape(Capsule())
+                Image(systemName: "plus.circle")
+                    .scaleEffect(3)
+                    .frame(maxWidth: .infinity)
             }
             .disabled(!(isFirstHalfGoing || isSecondHalfGoing))
     
          }
+         .padding()
            
             EventsList(match: match)
                 .sheet(isPresented: $isShowNewEventSheet) {
@@ -245,8 +259,22 @@ struct CurrentMatchView: View {
             if isBreak {
                 breakCounter += 1
             }
+        }
+        .actionSheet(isPresented: $isStopMatchActionSheetShow) {
+            ActionSheet(title: Text("Stop the match?"), message: Text("Do you want to stop current match?"), buttons: [
             
+                .destructive(Text("Stop and delete match"), action: {
+                    print("delete match")
+                }),
+                .default(Text("Stop and restart match"), action: {
+                    print("stop and restart")
+                }),
+                .default(Text("Stop and save result"), action: {
+                    print("stop and save")
+                }),
+                .cancel(Text("Cancel"))
 
+            ])
         }
         
     }

@@ -30,7 +30,7 @@ struct TeamsView: View {
                             }
                         }
                     }
-                    .onDelete(perform: deleteTeam)
+                    
                 }
             }
             .navigationTitle("Teams")
@@ -46,17 +46,7 @@ struct TeamsView: View {
             
         }
     }
-    
-    
-    // TODO: replace to deleting in detail view ?
-    
-    func deleteTeam(at offsets: IndexSet) {
-        offsets.forEach { index in
-            let team = teams[index]
-            moc.delete(team)
-            try? moc.save()
-        }
-    }
+
 }
 
 

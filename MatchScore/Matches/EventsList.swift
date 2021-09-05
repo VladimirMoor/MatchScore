@@ -40,6 +40,17 @@ struct EventsList: View {
                     
                 }
             }
+            .onDelete(perform: deleteEvent)
+        }
+    }
+    
+    func deleteEvent(at offset: IndexSet) {
+        offset.forEach { index in
+            let event = events[index]
+            if let moc = match.managedObjectContext {
+                moc.delete(event)
+                try? moc.save()
+            }
         }
     }
 }
