@@ -8,6 +8,8 @@
 import SwiftUI
 import CoreData
 
+
+
 struct CurrentMatchView: View {
 
     @Environment(\.managedObjectContext) var moc
@@ -52,30 +54,63 @@ struct CurrentMatchView: View {
     var body: some View {
 
         VStack {
-            
-        HStack {
+                        
+            HStack {
             
             Text(match.homeTeam?.name ?? "")
                 .padding()
                 .background(Color.yellow)
                 .frame(maxWidth: .infinity)
             
-            ZStack {
+                ZStack(alignment: .circleAndText) {
+                    
                 Circle()
                     .trim(from: 0, to: 1)
                     .stroke(Color.black.opacity(0.1), style: StrokeStyle(lineWidth: 7))
                     .frame(width: 150, height: 150)
-                
+                    .alignmentGuide(Alignment.circleAndText.vertical) { d in
+                        d[VerticalAlignment.center]
+                    }
+
                 Circle()
                     .trim(from: 0, to: to)
                     .stroke(Color.red, style: StrokeStyle(lineWidth: 7, lineCap: .round))
                     .frame(width: 150, height: 150)
                     .rotationEffect(Angle(degrees: -90))
+                    
                 
                 VStack {
+                    
+                    if isFirstHalfGoing && firstHalfAddTimer > 0 {
+                        Text(Event.secondsToString(firstHalfAddTimer))
+
+                    } else if secondHalfAddTimer > 0 {
+                        Text(Event.secondsToString(secondHalfAddTimer))
+
+                    } else {
+                        Text("")
+                     }
+                    
+                    Text(Event.secondsToString(secondHalfTimer > 0 ? secondHalfTimer : firstHalfTimer))
+                    
                     Text("\(homeTeamGoals) : \(visitTeamGoals)")
                         .font(.largeTitle)
+                        .bold()
+                        .alignmentGuide(Alignment.circleAndText.vertical) { d in
+                            d[VerticalAlignment.center]
+                        }
+
+
+                    switch(isFirstHalfGoing, isBreak, isSecondHalfGoing, matchIsOver) {
+                    case(false, false, false, false): Text("coin toss")
+                    case(true, false, false, false): Text("1st half")
+                    case(false, true, false, false): Text("break")
+                    case(false, false, true, false): Text("2nd half")
+                    case(false, false, false, true): Text("match is over")
+                    default: EmptyView()
+                    }
                 }
+                
              }
 
             Text(match.visitTeam?.name ?? "")
@@ -123,7 +158,7 @@ struct CurrentMatchView: View {
                         case (true, false, false): Text("Stop first half")
                         case(false, false, true): Text("Start second half")
                         case(false, true, false): Text("Stop second half")
-                        default: Text("??? Is it possible case???? ")
+                        default: EmptyView()
                         }
                         }
                     }
@@ -139,8 +174,7 @@ struct CurrentMatchView: View {
                 newGameTime.firstHalfExtraTimer = Int16(firstHalfAddTimer)
                 newGameTime.secondHalfTimer = Int16(secondHalfTimer)
                 newGameTime.secondHalfExtraTimer = Int16(secondHalfAddTimer)
-               
-                
+
                 isHomeTeamEvent = true
                 isShowNewEventSheet = true
 
@@ -174,9 +208,7 @@ struct CurrentMatchView: View {
             .disabled(!(isFirstHalfGoing || isSecondHalfGoing))
     
          }
-            
-            Text("Hello list")
-            
+           
             EventsList(match: match)
                 .sheet(isPresented: $isShowNewEventSheet) {
                     NewEventSheet(match: match, moment: newGameTime, isHomeTeamEvent: isHomeTeamEvent )
@@ -187,7 +219,7 @@ struct CurrentMatchView: View {
         .navigationBarHidden(true)
         .onReceive(time) { _ in
 
-            to = CGFloat(firstHalfTimer + secondHalfCounter) / CGFloat(match.oneHalfDuration * 120)
+            to = CGFloat((secondHalfTimer == 0 ? firstHalfTimer : 0) + secondHalfTimer) / CGFloat(match.oneHalfDuration * 120)
             
             if isFirstHalfGoing == true {
                 
@@ -221,3 +253,25 @@ struct CurrentMatchView: View {
 
 }
 
+extension Alignment {
+
+    struct HA: AlignmentID {
+        static func defaultValue(in context: ViewDimensions) -> CGFloat {
+            context[HorizontalAlignment.center]
+        }
+    }
+    
+    struct VA: AlignmentID {
+        static func defaultValue(in context: ViewDimensions) -> CGFloat {
+            context[VerticalAlignment.center]
+        }
+    }
+    
+    struct CircleAndText: AlignmentID {
+        static func defaultValue(in context: ViewDimensions) -> CGFloat {
+            context[.top]
+        }
+    }
+    
+    static let circleAndText = Alignment(horizontal: HorizontalAlignment(HA.self), vertical: VerticalAlignment(VA.self))
+}
