@@ -30,13 +30,14 @@ struct MatchView: View {
     
     var body: some View {
         
+        NavigationLink(destination: MatchDetailView(match: match, homeTeamGoals: homeTeamGoals, visitTeamGoals: visitTeamGoals)) {
                 HStack {
                     
                 Text(match.homeTeam?.name ?? "")
-                Text(" - ")
-                Text(match.visitTeam?.name ?? "")
                 Text("\(homeTeamGoals) : \(visitTeamGoals)")
-                    
+                Text(match.visitTeam?.name ?? "")
+       
+        }
         }
     }
 }

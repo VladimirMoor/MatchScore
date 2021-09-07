@@ -224,8 +224,7 @@ struct CurrentMatchView: View {
                                 .stroke(lineWidth: 1)
                         )
                     }
-                    
-                .disabled( (firstHalfTimer > 0 && firstHalfAddTimer == 0) || (secondHalfTimer > 0 && secondHalfAddTimer == 0) || matchIsOver )
+                .disabled((firstHalfTimer > 0 && firstHalfAddTimer == 0) || (secondHalfTimer > 0 && secondHalfAddTimer == 0) || matchIsOver)
                     
                     
                 
