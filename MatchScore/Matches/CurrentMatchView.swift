@@ -56,16 +56,34 @@ struct CurrentMatchView: View {
     var body: some View {
 
         VStack {
+            
+            Spacer(minLength: 50)
+            
             HStack {
                 Spacer()
-            Button {
-                isStopMatchActionSheetShow = true
-            } label: {
-                Image(systemName: "stop.circle")
-            }
-            .padding(.trailing, 30)
-            .scaleEffect(1.5)
-            }
+                
+                if matchIsOver {
+                    
+                    Button {
+                        presentationMode.wrappedValue.dismiss()
+                    } label: {
+                        Image(systemName: "xmark.circle")
+                    }
+                    .padding(.trailing, 30)
+                    .scaleEffect(1.5)
+
+                    
+                } else {
+                    Button {
+                        isStopMatchActionSheetShow = true
+                    } label: {
+                        Image(systemName: "stop.circle")
+                    }
+                    .padding(.trailing, 30)
+                    .scaleEffect(1.5)
+                    }
+                }
+            
             
             Spacer()
                         
@@ -74,7 +92,7 @@ struct CurrentMatchView: View {
             Text(match.homeTeam?.name ?? "")
                 .padding()
                 .frame(maxWidth: .infinity)
-            
+                
                 ZStack(alignment: .circleAndText) {
                     
                 Circle()
@@ -273,14 +291,32 @@ struct CurrentMatchView: View {
             ActionSheet(title: Text("Stop the match?"), message: Text("Do you want to stop current match?"), buttons: [
             
                 .destructive(Text("Stop and delete match"), action: {
-                    print("delete match")
                     moc.delete(match)
                     try? moc.save()
                     presentationMode.wrappedValue.dismiss()
                     
                 }),
                 .default(Text("Stop and restart match"), action: {
-                    print("stop and restart")
+                    
+                    firstHalfTimer = 0
+                    firstHalfAddTimer = 0
+                    secondHalfTimer = 0
+                    secondHalfAddTimer = 0
+                    
+                    isFirstHalfGoing = false
+                    isSecondHalfGoing = false
+                    isBreak = false
+                    breakCounter = 0
+                    secondHalfCounter = 0
+                    matchIsOver = false
+                    to = 0
+                    
+                    
+                    match.events?.forEach { event in
+                        moc.delete(event as! Event)
+                    }
+                    
+                    try? moc.save()
                 }),
                 .cancel(Text("Cancel"))
 

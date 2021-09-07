@@ -21,7 +21,6 @@ struct EventsList: View {
         } else {
             events = []
         }
-
     }
     
     
@@ -30,17 +29,37 @@ struct EventsList: View {
             ForEach(events) { event in
                 HStack {
                     TimeStamp(event: event)
-                    Spacer()
-                    Text(event.type ?? "")
-                        .bold()
-                    Text(event.author?.fullName ?? "")
-                    Text("[\(Int(event.author?.number ?? 0))]")
-                    
+                    if event.team == match.homeTeam {
+                        EventPic(event: event)
+                        Text(event.author?.fullName ?? "")
+                     //   Text("[\(Int(event.author?.number ?? 0))]")
+                    } else {
+                        Spacer()
+                        Text(event.author?.fullName ?? "")
+                      //  Text("[\(Int(event.author?.number ?? 0))]")
+                        EventPic(event: event)
+                    }
                 }
             }
             .onDelete(perform: deleteEvent)
         }
+        .listStyle(.inset)
         
+    }
+    
+    struct EventPic: View {
+        let event: Event
+        
+        var body: some View {
+            
+            switch(event.type) {
+            case "Goal": Text("⚽️")
+            case "Yellow card": Text("🟨")
+            case "Red card": Text("🟥")
+            default: Text("?")
+            }
+            
+        }
     }
     
     func deleteEvent(at offset: IndexSet) {

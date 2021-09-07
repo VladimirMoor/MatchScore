@@ -11,6 +11,7 @@ import CoreData
 struct NewMatchCreateView: View {
     
     @Environment(\.managedObjectContext) var moc
+    @Environment(\.presentationMode) var presentationMode
     @FetchRequest(entity: Team.entity(), sortDescriptors: []) var teams: FetchedResults<Team>
     @State private var homeTeam: Team = Team()
     @State private var visitTeam: Team = Team()
@@ -72,12 +73,10 @@ struct NewMatchCreateView: View {
                 
         }
         .navigationTitle("Create Match")
-        .fullScreenCover(isPresented: $isShowMatchView) {
+        .fullScreenCover(isPresented: $isShowMatchView, onDismiss: { presentationMode.wrappedValue.dismiss() } ) {
             CurrentMatchView(match: match)
         }
         }
-        
-
         }
 
     }
