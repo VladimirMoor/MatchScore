@@ -13,6 +13,7 @@ import CoreData
 struct CurrentMatchView: View {
 
     @Environment(\.managedObjectContext) var moc
+    @Environment(\.presentationMode) var presentationMode
     @ObservedObject var match: Match
     @State private var time = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
@@ -133,12 +134,10 @@ struct CurrentMatchView: View {
                 .frame(maxWidth: .infinity)
         }
  
-            if matchIsOver {
-                Text("Match is over")
-            }
+            
             
             HStack {
-                
+
             Button {
 
                 newGameTime = GameTimer(context: moc)
@@ -196,11 +195,21 @@ struct CurrentMatchView: View {
                             case(false, true, false): Text("Stop second half")
                             default: EmptyView()
                             }
+                            } else {
+                                Text("Match is over")
                             }
                         }
+                        .frame(minWidth: 200)
+                        .padding(.vertical, 10)
+                        .background(
+                            Capsule()
+                                .stroke(lineWidth: 1)
+                        )
                     }
-                    .disabled( (firstHalfTimer > 0 && firstHalfAddTimer == 0) || (secondHalfTimer > 0 && secondHalfAddTimer == 0) )
-                    .frame(maxWidth: .infinity)
+                    
+                .disabled( (firstHalfTimer > 0 && firstHalfAddTimer == 0) || (secondHalfTimer > 0 && secondHalfAddTimer == 0) || matchIsOver )
+                    
+                    
                 
             Button {
                 
@@ -265,12 +274,13 @@ struct CurrentMatchView: View {
             
                 .destructive(Text("Stop and delete match"), action: {
                     print("delete match")
+                    moc.delete(match)
+                    try? moc.save()
+                    presentationMode.wrappedValue.dismiss()
+                    
                 }),
                 .default(Text("Stop and restart match"), action: {
                     print("stop and restart")
-                }),
-                .default(Text("Stop and save result"), action: {
-                    print("stop and save")
                 }),
                 .cancel(Text("Cancel"))
 

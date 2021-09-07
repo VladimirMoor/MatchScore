@@ -10,6 +10,7 @@ import SwiftUI
 struct MatchesListView: View {
     @Environment(\.managedObjectContext) var moc
     @FetchRequest(entity: Match.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Match.startDate, ascending: true)]) var matches: FetchedResults<Match>
+    @FetchRequest(entity: Event.entity(), sortDescriptors: []) var events: FetchedResults<Event>
     @State private var isShowNewMatchView = false
     
     var body: some View {
@@ -19,6 +20,8 @@ struct MatchesListView: View {
             NavigationLink(destination: NewMatchCreateView(), isActive: $isShowNewMatchView) {
                 EmptyView()
             }
+        
+            Text("Events total: \(events.count)")
             
         List {
             ForEach(matches) { match in

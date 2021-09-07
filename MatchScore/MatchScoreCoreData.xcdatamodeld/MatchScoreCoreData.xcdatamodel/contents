@@ -18,7 +18,7 @@
     <entity name="Match" representedClassName="Match" syncable="YES" codeGenerationType="class">
         <attribute name="oneHalfDuration" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="startDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <relationship name="events" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Event" inverseName="match" inverseEntity="Event"/>
+        <relationship name="events" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Event" inverseName="match" inverseEntity="Event"/>
         <relationship name="homeTeam" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Team" inverseName="homeMatches" inverseEntity="Team"/>
         <relationship name="visitTeam" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Team" inverseName="visitMatches" inverseEntity="Team"/>
     </entity>

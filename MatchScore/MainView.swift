@@ -11,6 +11,7 @@ struct MainView: View {
     
     @Environment(\.managedObjectContext) var moc
     @FetchRequest(entity: Match.entity(), sortDescriptors: []) var matches: FetchedResults<Match>
+    @FetchRequest(entity: Event.entity(), sortDescriptors: []) var events: FetchedResults<Event>
     var body: some View {
         TabView {
             MatchesListView()
@@ -25,6 +26,10 @@ struct MainView: View {
             
             Button(action: {
                 
+                events.forEach { event in
+                    moc.delete(event)
+                }
+                
                 for match in matches {
                     moc.delete(match)
                 }
@@ -32,7 +37,7 @@ struct MainView: View {
                 try? moc.save()
                 
             }, label: {
-                Text("Delete matches")
+                Text("Delete matches and events")
             })
                 .tabItem {
                     Label("Stats", systemImage: "text.book.closed")

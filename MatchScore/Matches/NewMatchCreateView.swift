@@ -17,7 +17,7 @@ struct NewMatchCreateView: View {
     @State private var match: Match = Match()
 
     
-    let oneHalfDurations = [1, 5 ,10 ,20 ,30, 45, 60]
+    let oneHalfDurations = [1, 5 , 10, 15, 20 ,30, 45, 60]
     @State private var oneHalfDuration = 45
     @State private var isShowMatchView = false
     
@@ -26,9 +26,6 @@ struct NewMatchCreateView: View {
         NavigationView {
         VStack {
             
-            NavigationLink(destination: CurrentMatchView(match: match), isActive: $isShowMatchView) {
-                EmptyView()
-            }
                 Form {
 
                     Picker("Home Team", selection: $homeTeam) {
@@ -48,7 +45,6 @@ struct NewMatchCreateView: View {
                             Text("\(duration) min.")
                         }
                     }
-
 
                     Section {
                         Button {
@@ -76,6 +72,9 @@ struct NewMatchCreateView: View {
                 
         }
         .navigationTitle("Create Match")
+        .fullScreenCover(isPresented: $isShowMatchView) {
+            CurrentMatchView(match: match)
+        }
         }
         
 
