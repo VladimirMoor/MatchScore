@@ -39,6 +39,9 @@ struct CurrentMatchView: View {
     @State private var to: CGFloat = 0
     @State private var isStopMatchActionSheetShow = false
     
+    @State private var goToBackgroundMoment = Date()
+    @State private var backFromBackgroundMoment = Date()
+    
     
     var homeTeamGoals: Int {
         if let events = match.events?.allObjects as? [Event] {
@@ -286,6 +289,39 @@ struct CurrentMatchView: View {
                 breakCounter += 1
             }
         }
+        .onReceive(NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification)) { _ in
+            print("Go to background now")
+            goToBackgroundMoment = Date()
+        }
+        .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
+            print("We back from background")
+            backFromBackgroundMoment = Date()
+            
+            let differenceInSeconds = backFromBackgroundMoment.timeIntervalSince(goToBackgroundMoment) - 2
+            
+            if isFirstHalfGoing == true {
+                
+                if firstHalfTimer < match.oneHalfDuration * 60 {
+                    firstHalfTimer += Int(differenceInSeconds)
+                    
+                } else {
+                    firstHalfAddTimer += Int(differenceInSeconds)
+                }
+
+            } else {
+                
+                if isSecondHalfGoing {
+                    secondHalfCounter += Int(differenceInSeconds)
+                    if secondHalfTimer < match.oneHalfDuration * 2 * 60 {
+                    secondHalfTimer = Int(match.oneHalfDuration * 60) + Int(differenceInSeconds)
+                    } else {
+                        secondHalfAddTimer += Int(differenceInSeconds)
+                    }
+                }
+            }
+            
+        }
+        
         .actionSheet(isPresented: $isStopMatchActionSheetShow) {
             ActionSheet(title: Text("Stop the match?"), message: Text("Do you want to stop current match?"), buttons: [
             

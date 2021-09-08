@@ -38,7 +38,7 @@ struct MatchView: View {
                 Text(match.visitTeam?.name ?? "")
        
         }
-        }
+       }
     }
 }
 
