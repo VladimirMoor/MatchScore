@@ -32,11 +32,11 @@ struct EventsList: View {
                     if event.team == match.homeTeam {
                         EventPic(event: event)
                         Text(event.author?.fullName ?? "")
-                     //   Text("[\(Int(event.author?.number ?? 0))]")
+                        Text("[\(Int(event.author?.number ?? 0))]")
                     } else {
                         Spacer()
                         Text(event.author?.fullName ?? "")
-                      //  Text("[\(Int(event.author?.number ?? 0))]")
+                        Text("[\(Int(event.author?.number ?? 0))]")
                         EventPic(event: event)
                     }
                 }

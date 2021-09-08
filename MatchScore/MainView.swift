@@ -10,8 +10,7 @@ import SwiftUI
 struct MainView: View {
     
     @Environment(\.managedObjectContext) var moc
-    @FetchRequest(entity: Match.entity(), sortDescriptors: []) var matches: FetchedResults<Match>
-    @FetchRequest(entity: Event.entity(), sortDescriptors: []) var events: FetchedResults<Event>
+    
     var body: some View {
         TabView {
             MatchesListView()
@@ -24,21 +23,12 @@ struct MainView: View {
                     Label("Teams", systemImage: "person.3")
                 }
             
-            Button(action: {
-                
-                events.forEach { event in
-                    moc.delete(event)
+            BestPlayers()
+                .tabItem {
+                    Label("Best players", systemImage: "list.star")
                 }
-                
-                for match in matches {
-                    moc.delete(match)
-                }
-                
-                try? moc.save()
-                
-            }, label: {
-                Text("Delete matches and events")
-            })
+            
+            RefreshView()
                 .tabItem {
                     Label("Stats", systemImage: "text.book.closed")
                 }
