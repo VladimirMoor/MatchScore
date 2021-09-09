@@ -63,7 +63,7 @@ struct NewPlayerView: View {
                         .padding(.vertical, 10)
                         .background(
                             Capsule()
-                                .fill(Color.green)
+                                .strokeBorder()
                         )
                 }
                 .buttonStyle(.borderless)

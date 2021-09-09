@@ -27,11 +27,6 @@ struct MainView: View {
                 .tabItem {
                     Label("Best players", systemImage: "list.star")
                 }
-            
-            RefreshView()
-                .tabItem {
-                    Label("Stats", systemImage: "text.book.closed")
-                }
         }
         
     }

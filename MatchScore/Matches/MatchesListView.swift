@@ -20,8 +20,7 @@ struct MatchesListView: View {
             NavigationLink(destination: NewMatchCreateView(), isActive: $isShowNewMatchView) {
                 EmptyView()
             }
-        
-            Text("Events total: \(events.count)")
+
             
         List {
             ForEach(matches) { match in
@@ -36,7 +35,7 @@ struct MatchesListView: View {
                 Button {
                     isShowNewMatchView = true
                 } label: {
-                    Image(systemName: "plus")
+                    Image(systemName: "plus.circle")
                 }
 
             }

@@ -18,7 +18,7 @@ struct NewMatchCreateView: View {
     @State private var match: Match = Match()
 
     
-    let oneHalfDurations = [1, 5 , 10, 15, 20 ,30, 45, 60]
+    let oneHalfDurations = [1, 5, 10, 15, 20, 30, 45, 60]
     @State private var oneHalfDuration = 45
     @State private var isShowMatchView = false
     
@@ -26,6 +26,12 @@ struct NewMatchCreateView: View {
 
         NavigationView {
         VStack {
+            
+            if teams.count < 2 {
+                Text("Create at least two teams in 'Teams' tab")
+                    .font(.title3)
+                    .foregroundColor(Color.gray.opacity(0.5))
+            } else {
             
                 Form {
 
@@ -70,6 +76,7 @@ struct NewMatchCreateView: View {
                     }
 
                 }
+            }
                 
         }
         .navigationTitle("Create Match")

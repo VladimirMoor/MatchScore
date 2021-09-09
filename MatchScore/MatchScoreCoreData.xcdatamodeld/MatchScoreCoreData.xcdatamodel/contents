@@ -35,15 +35,15 @@
         <attribute name="name" attributeType="String"/>
         <attribute name="regDate" attributeType="Date" usesScalarValueType="NO"/>
         <relationship name="events" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Event" inverseName="team" inverseEntity="Event"/>
-        <relationship name="homeMatches" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="Match" inverseName="homeTeam" inverseEntity="Match"/>
-        <relationship name="players" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="Player" inverseName="team" inverseEntity="Player"/>
-        <relationship name="visitMatches" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="Match" inverseName="visitTeam" inverseEntity="Match"/>
+        <relationship name="homeMatches" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Match" inverseName="homeTeam" inverseEntity="Match"/>
+        <relationship name="players" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Player" inverseName="team" inverseEntity="Player"/>
+        <relationship name="visitMatches" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Match" inverseName="visitTeam" inverseEntity="Match"/>
     </entity>
     <elements>
         <element name="Event" positionX="-275.6484375" positionY="-16.12890625" width="185.08203125" height="119"/>
         <element name="GameTimer" positionX="111.34375" positionY="-179.28515625" width="128" height="104"/>
         <element name="Match" positionX="-142.55859375" positionY="-279.55859375" width="128" height="104"/>
         <element name="Player" positionX="-232.6015625" positionY="251.484375" width="128" height="133"/>
-        <element name="Team" positionX="-614.8515625" positionY="-155.83984375" width="152.9375" height="148"/>
+        <element name="Team" positionX="-614.8515625" positionY="-155.83984375" width="152.9375" height="134"/>
     </elements>
 </model>

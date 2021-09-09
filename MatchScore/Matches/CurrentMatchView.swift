@@ -220,7 +220,7 @@ struct CurrentMatchView: View {
                                 Text("Match is over")
                             }
                         }
-                        .frame(minWidth: 200)
+                        .frame(minWidth: 150)
                         .padding(.vertical, 10)
                         .background(
                             Capsule()
@@ -261,9 +261,9 @@ struct CurrentMatchView: View {
      }
         .navigationBarHidden(true)
         .onReceive(time) { _ in
-
+            withAnimation {
             to = CGFloat((secondHalfTimer == 0 ? firstHalfTimer : 0) + secondHalfTimer) / CGFloat(match.oneHalfDuration * 120)
-            
+            }
             if isFirstHalfGoing == true {
                 
                 if firstHalfTimer < match.oneHalfDuration * 60 {

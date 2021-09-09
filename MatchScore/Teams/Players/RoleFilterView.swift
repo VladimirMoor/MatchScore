@@ -25,7 +25,7 @@ struct RoleFilterView: View {
                 
             Text(item)
                 .padding()
-                .background(Color.pink)
+                .background(Color.blue)
                 .clipShape(Capsule())
                 .onTapGesture {
                     print(item)

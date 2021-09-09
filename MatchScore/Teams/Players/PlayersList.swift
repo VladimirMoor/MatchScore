@@ -37,6 +37,10 @@ struct PlayersList: View {
                     Text("\(player.number)")
                     Text(player.fullName ?? "Noname")
                     Text(player.role ?? "None")
+                        .padding(4)
+                        .background(Color.gray.opacity(0.2))
+                        .cornerRadius(3)
+                        
                 }
             }
             .onDelete { indexSet in
